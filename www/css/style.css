@@ -1,0 +1,126 @@
+.emojiButton {
+  background-size: 35px 35px;
+  margin: 0px 5px;
+}
+.emojiButton {
+  height: 35px;
+  width: 35px !important;
+  margin: 0px 5px;
+  position: relative;
+  top: -3px;
+}
+
+.emoji {
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: -10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.chatScreen {
+  padding: 40px 0px 80px 0px;
+  background-color: white;
+}
+
+
+.toMessage{
+  position:relative;
+  padding: 5px;
+  color: #000;
+  margin: 5px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+  text-align: right;
+  background: #ffb554;
+  font-size: 18px !important;
+}
+
+.fromMessage {
+  position:relative;
+  padding: 5px;
+  color:#000;
+  margin: 0px 5px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+
+  text-align: left;
+
+  background: #FCDAA9;
+
+  font-size: 18px !important;
+
+}
+
+.date {
+  color: gray;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.AngryFaceEButton {
+  background-image: url('../img/emoji/AngryFace.png');
+}
+.HappyFaceEButton {
+  background-image: url('../img/emoji/HappyFace.png');
+}
+.GrazingHorseEButton {
+  background-image: url('../img/emoji/GrazingHorse.png');
+}
+.LayingHorseEButton {
+  background-image: url('../img/emoji/LayingHorse.png');
+}
+
+
+.messageFooter {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #FFB554;
+}
+
+
+.footer-input {
+  // position: relative;
+  // top: 1px;
+  border: 1px solid #c0c0c0 !important;
+  border-radius: 10px;
+  width: 100%;
+  padding: 3px 5px;
+  // height: 46px !important;
+}
+
+.button.button-tangerine {
+  border-color: transparent;
+  background-color: #FFB554;
+  color: #fff; }
+  .button.button-tangerine:hover {
+    color: #fff;
+    text-decoration: none; }
+  .button.button-tangerine.active, .button.button-tangerine.activated {
+    background-color: #FF8354; }
+  .button.button-tangerine.button-clear {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    color: #ffc900; }
+  .button.button-tangerine.button-icon {
+    border-color: transparent;
+    background: none; }
+  .button.button-tangerine.button-outline {
+    border-color: #ffc900;
+    background: transparent;
+    color: #ffc900; }
+    .button.button-tangerine.button-outline.active, .button.button-tangerine.button-outline.activated {
+      background-color: #ffc900;
+      box-shadow: none;
+      color: #fff; }
+
+.sendChatButton {
+  position: absolute;
+  bottom: 45px;
+  height: 10px !important;
+}

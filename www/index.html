@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+
+    <script src="js/controllers.js"></script>
+
+    <script src="js/emoji.filter.js"></script>
+  </head>
+  <body ng-app="starter">
+    <div ng-controller="chatController">
+
+      <ion-content class="" style="background-color: white;" keyboard-attach>
+
+        <div class="top-container" scroll-glue>
+
+          <div ng-repeat="message in data.convo.messages">
+            <div class="row">
+              <div class="col col-80" ng-class="{ 'col-offset-20' : message.to_user != data.currentUser.user_id }">
+                <div ng-class="{toMessage : message.to_user != data.currentUser.user_id, fromMessage : message.to_user == data.currentUser.user_id}">
+                  <div ng-bind-html="message.content | emoji">{{message.content}}</div>
+                  <div class="date">{{message.message_created | date:'MMM d, y h:mm'}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </ion-content>
+
+      <div class="messageFooter" keyboard-attach>
+
+        <div class="row">
+
+          <div class="col col-80">
+            <textarea class="footer-input" placeholder="Enter Message" ng-model="data.chatMessage" rows="2" cols="45" ng-focus="focus=true" ng-blur="focus=false"></textarea>
+          </div>
+
+          <div class="col col-20">
+            <button class="button button-tangerine sendChatButton" ng-click="data.sendChatMessage()">Send</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- <ion-scroll zooming="false" paging="false" scrollbar-x="false" direction="x" style="height: 40px;"> -->
+            <div class="row" style="height:40px; width: 360px;">
+              <ion-label class="emojiButton HappyFaceEButton" ng-click="data.addEmoji(':HappyFace:')"></ion-label>
+              <ion-label class="emojiButton AngryFaceEButton" ng-click="data.addEmoji(':AngryFace:')"></ion-label>
+              <ion-label class="emojiButton LayingHorseEButton" ng-click="data.addEmoji(':LayingHorse:')"></ion-label>
+              <ion-label class="emojiButton GrazingHorseEButton" ng-click="data.addEmoji(':GrazingHorse:')"></ion-label>
+            </div>
+          <!-- </ion-scroll> -->
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+</html>
