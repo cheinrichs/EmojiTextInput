@@ -1,7 +1,7 @@
-angular.module('starter.controllers', [])
+﻿angular.module('starter.controllers', [])
 
-.controller('chatController', ['$scope', '$http',
-function ($scope, $http) {
+.controller('chatController', ['$scope', '$http', '$timeout',
+function ($scope, $http, $timeout) {
 
   $scope.data = {};
 
@@ -13,21 +13,58 @@ function ($scope, $http) {
     console.log("log in chat ctrl");
   }
 
-  $scope.data.addEmoji = function (emoji) {
-    console.log("adding emoji", emoji);
-    if($scope.data.chatMessage){
-      $scope.data.chatMessage = $scope.data.chatMessage + " " + emoji;
-    } else {
-      $scope.data.chatMessage = "" + emoji;
+  function placeCaretAtEnd(el) {
+    el.focus();
+    if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+      console.log("the defined top");
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } else if (typeof document.body.createTextRange != "undefined") {
+      console.log("the undefined bottom");
+      var textRange = document.body.createTextRange();
+      textRange.moveToElementText(el);
+      textRange.collapse(false);
+      textRange.select();
     }
   }
 
+
+
+  $scope.data.addEmoji = function (emoji) {
+
+    console.log("adding emoji", emoji);
+    var imgEmoji = emoji.substring(1, emoji.length - 1);
+
+    document.getElementById("chatboxDiv").innerHTML += '<img class="emoji" src="img/emoji/'+imgEmoji+'.png"></img>';
+    document.getElementById("chatboxDiv").innerHTML = document.getElementById("chatboxDiv").innerHTML.replace(new RegExp('<br>', 'g'), '');
+    placeCaretAtEnd(document.getElementById("chatboxDiv"));
+
+  }
+
   $scope.data.sendChatMessage = function () {
-    console.log("Sending Message");
-    if($scope.data.chatMessage){
+
+      //var myEl = angular.element(document.querySelector('#chattext'));
+
+      console.log("Sending Message..");
+      //$scope.data.chatMessage = myEl;
+      var chatMessageEncoded = document.getElementById("chatboxDiv").innerHTML;
+
+      var emojiIds = [ "HappyFace", "AngryFace", "LayingHorse", "GrazingHorse"];
+
+      var emojiIdsLength = emojiIds.length;
+      for (var i = 0; i < emojiIdsLength; i++){
+        chatMessageEncoded.replace(new RegExp('<img class="emoji" src="img/emoji/' + emojiIds[i] + '.png"></img>', 'g'), ":" + emojiIds[i] + ":");
+      }
+
+      //if($scope.data.chatMessage){
+      if (chatMessageEncoded.trim() != "") {
       var newMessage = {
         broadcast_id: null,
-        content: $scope.data.chatMessage,
+        content: chatMessageEncoded,
         from_user: 1,
         geographically_limited: false,
         group_id: null,
@@ -47,14 +84,19 @@ function ($scope, $http) {
       $scope.data.convo.messages.push(newMessage);
       console.log($scope.data.convo);
       $scope.data.chatMessage = "";
+
+      document.getElementById("chatboxDiv").innerHTML = "";
     }
   }
 
   $scope.data.chatMessages = '';
+
   var url = 'https://whinny-staging.herokuapp.com/chatMessages/1';
   return $http.get(url).then(function (res) {
     $scope.data.chatMessages = res.data;
-    for (var i = 0; i < $scope.data.chatMessages.length; i++) if($scope.data.chatMessages[i].convoUser.user_id === 2) $scope.data.convo = $scope.data.chatMessages[i];
+    for (var i = 0; i < $scope.data.chatMessages.length; i++)
+        if ($scope.data.chatMessages[i].convoUser.user_id === 2)
+            $scope.data.convo = $scope.data.chatMessages[i];
   });
 
-}])
+        }])
